@@ -1,7 +1,8 @@
 
 
 # src/arch/x86_64/start.rs#
-##kstart()##
+## kstart()
+
 1.函数kstrat用于内核设置中断处理程序，生成中断表以及正确的条目，条目被定义在"arch"模块中
 2.BSS_TEST_ZERO标志应初始化为0
 3.DATA_TEST_NONZERO应初始化为全1
@@ -38,7 +39,8 @@
 23.BSP_READY=true;
 24.调用kmain();
 
-##kstart()_ap##
+## kstart()_ap
+
 1.cheak BSS and DATA
 2.init gdt
 3.init idt
