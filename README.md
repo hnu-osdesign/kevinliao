@@ -1,8 +1,8 @@
 # kevinliao
 廖琨的仓库
 
-'''
-#include<stdio.h>  
+```
+#include<stdio.h>
 int a=10;  
 int *show() 
 {  
@@ -15,7 +15,7 @@ int main()
 	printf("%d\n",a);  
 }   
 
-''' 
+```
 
 # src/arch/x86_64/start.rs#
 ## kstart()
