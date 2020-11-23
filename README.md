@@ -1,6 +1,19 @@
 # kevinliao
 廖琨的仓库
-
+'''
+#include<stdio.h>
+int a=10;
+int *show()
+{
+	return &a;
+}
+int main()
+{
+	printf("%d\n",a);
+	*show()=20;
+	printf("%d\n",a);
+} 
+'''
 
 # src/arch/x86_64/start.rs#
 ## kstart()
