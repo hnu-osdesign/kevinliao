@@ -109,7 +109,7 @@ int main()
  - fn init_noncore()初始化： 申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.set_noncore(true)否则panic！
  - fn free_frames()-> usize 可用帧数：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.free_frames否则panic！
  - fn used_frames()->usize 已用帧数：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.used_frames否则panic！
- - fn allocate_frames(size)->Option(Frame) 分配一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BBumpAllocator>,调用allocator.allocator(size)否则panic！
+ - fn allocate_frames(size)->Option(Frame) 分配一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.allocator(size)否则panic！
  - fn allocate_frames_complex(count,flags,strategy,min) 分配一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.allocate_frames3否则panic！
  - fn deallocate_frames(frame,count) 释放一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt; BumpAllocator>,调用allocator.deallocate_frames（frame,count）否则panic！  
 2. bump.rs
