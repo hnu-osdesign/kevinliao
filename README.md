@@ -102,7 +102,7 @@ int main()
 	- fn set_noncore() fn free_freames() fn used_frames() fn allocate_frames3() fn deallocate_frames()方法的签名  
 	- fn allocate_frames(self, size) -> Option&lt;Frame>的默认方法:调用`allocate_frames2(size,PhysallocFlags::SPACE_64)` 
 其中SPACE_64 = 0x0000_0002，但参数其实是一个PhysallocFlags类型  
-	- fn allocate_frames2(self, size, flags) -> Option&lt;Frame>的默认方法调用``allocate_frames3(size, flags, None, size).map(|(s, _)| s)`
+	- fn allocate_frames2(self, size, flags) -> Option&lt;Frame>的默认方法调用`allocate_frames3(size, flags, None, size).map(|(s, _)| s)`
  - static MEMORY_MAP[MemoryArea;512]
  - static ALLOCATOR:Mutex&lt;Option&lt;RecycleAllocator&lt;BumpAllocator>>>
  - fn init()初始化： 以0x500作为基地址存储MEMORY_MAP,保存信息到info！，获取一个互斥锁`*ALLOCATOR.lock() = Some(RecycleAllocator::new(BumpAllocator::new(kernel_start, kernel_end, MemoryAreaIter::new(MEMORY_AREA_FREE))));`
