@@ -1,4 +1,7 @@
 # rust学习笔记  
+## 方法  
+1. 可以在迭代器上调用`collect`方法将其转换为一个集合  
+2. unwrap()和expect（）方法，在Result为Err时调用panic！宏，expect可以指定错误信息。
 ## string  
 ### 字符串索引
 1. Rust 的字符串不支持索引
@@ -281,4 +284,53 @@ impl Iterator for Counter {
 	}
 }
 ```
-通过定义next方法实现Iterator trait，我们现在就可以使用任何标准库定义的拥有默认实现的Iterator trait方法了，因为他们都使用了next方法的功能。
+通过定义next方法实现Iterator trait，我们现在就可以使用任何标准库定义的拥有默认实现的Iterator trait方法了，因为他们都使用了next方法的功能。  
+## 智能指针  
+### 概述  
+智能指针通常使用结构体实现。智能指针区别于常规结构体的显著特性在于其实现了 `Deref` 和 `Drop` trait。`Deref` trait 允许智能指针结构体实例表现的像引用一样，这样就可以编写既用于引用、又用于智能指针的代码。`Drop` trait 允许我们自定义当智能指针离开作用域时运行的代码。  
+### Box <T>  
+box 允许你将一个值放在堆上而不是栈上。，box 没有性能损失。同时也没有很多额外的功能。它们多用于如下场景：
+- 当有一个在编译时未知大小的类型，而又想要在需要确切大小的上下文中使用这个类型值的时候  
+- 当有大量数据并希望在确保数据不被拷贝的情况下转移所有权的时候  
+- 当希望拥有一个值并只关心它的类型是否实现了特定 trait 而不是其具体类型的时候   
+1. 在栈上分配List不确定空间，不能编译。
+```
+enum List {
+    Cons(i32, List),
+    Nil,
+}
+fn main() {
+    let list = Cons(1, Cons(2, Cons(3, Nil)));
+}
+```
+2. 在堆上分配不确定空间，Box作为一个指针大小usize返回到栈中，可以编译。
+```
+enum List {
+    Cons(i32, Box<List>),
+    Nil,
+}
+fn main() {
+    let list = Cons(1,
+        Box::new(Cons(2,
+            Box::new(Cons(3,
+                Box::new(Nil))))));
+}
+```  
+
+### 通过 Deref trait 将智能指针当作常规引用处理  
+为了实现 trait，需要提供 trait 所需的方法实现。要求实现名为 `deref` 的方法，其借用 self 并返回一个内部数据的引用。  
+```
+fn main() {
+use std::ops::Deref;
+struct MyBox<T>(T);
+impl<T> Deref for MyBox<T> {
+    type Target = T;
+    fn deref(&self) -> &T {
+        &self.0
+    }
+}
+}
+```
+现在就可以完成MyBox的解引用了`*y`。
+### 使用 Drop Trait 运行清理代码
+指定在值离开作用域时应该执行的代码的方式是实现 `Drop` trait。`Drop` trait 要求实现一个叫做 drop 的方法，它获取一个 `self` 的**可变引用**。当实例离开作用域 Rust 会自动调用 `drop`，并调用我们指定的代码。变量以被创建时相反的顺序被丢弃，
