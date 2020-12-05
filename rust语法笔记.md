@@ -47,7 +47,7 @@ println!("{}", b);
 ## hash map	
 
 
-1. HashMap<K, V> 类型储存了一个键类型 K 对应一个值类型 V 的映射
+1. HashMap&lt;K, V> 类型储存了一个键类型 K 对应一个值类型 V 的映射
 2. `use std::collections::HashMap;`
 3. 使用collect方法合并元组称为hashmap
 4. string进入hashmap转移所有权 
@@ -288,7 +288,7 @@ impl Iterator for Counter {
 ## 智能指针  
 ### 概述  
 智能指针通常使用结构体实现。智能指针区别于常规结构体的显著特性在于其实现了 `Deref` 和 `Drop` trait。`Deref` trait 允许智能指针结构体实例表现的像引用一样，这样就可以编写既用于引用、又用于智能指针的代码。`Drop` trait 允许我们自定义当智能指针离开作用域时运行的代码。  
-### Box <T>  
+### Box &lt;T>  
 box 允许你将一个值放在堆上而不是栈上。，box 没有性能损失。同时也没有很多额外的功能。它们多用于如下场景：
 - 当有一个在编译时未知大小的类型，而又想要在需要确切大小的上下文中使用这个类型值的时候  
 - 当有大量数据并希望在确保数据不被拷贝的情况下转移所有权的时候  
@@ -333,4 +333,28 @@ impl<T> Deref for MyBox<T> {
 ```
 现在就可以完成MyBox的解引用了`*y`。
 ### 使用 Drop Trait 运行清理代码
-指定在值离开作用域时应该执行的代码的方式是实现 `Drop` trait。`Drop` trait 要求实现一个叫做 drop 的方法，它获取一个 `self` 的**可变引用**。当实例离开作用域 Rust 会自动调用 `drop`，并调用我们指定的代码。变量以被创建时相反的顺序被丢弃，
+指定在值离开作用域时应该执行的代码的方式是实现 `Drop` trait。`Drop` trait 要求实现一个叫做 drop 的方法，它获取一个 `self` 的**可变引用**。当实例离开作用域 Rust 会自动调用 `drop`，并调用我们指定的代码。变量以被创建时相反的顺序被丢弃。  
+使用函数drop(),可以强制提早清理值。 
+## Rc&lt;T> 引用计数智能指针
+为了启用多所有权，Rust 有一个叫做`Rc<T>`的类型。其名称为 引用计数（reference counting）的缩写。引用计数意味着记录一个值引用的数量来知晓这个值是否仍在被使用。如果某个值有零个引用，就代表没有任何有效引用并可以被清理。 
+**Rc&lt;T> 只能用于单线程场景**  
+### Rc在堆中提供共享所有权
+```
+enum List {
+    Cons(i32, Rc<List>),
+    Nil,
+}
+
+use crate::List::{Cons, Nil};
+use std::rc::Rc;
+
+fn main() {
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    let b = Cons(3, Rc::clone(&a));
+    let c = Cons(4, Rc::clone(&a));
+}
+```
+Rc&lt;T>提供不可变引用。
+
+## RefCell&lt;T> 和内部可变性
+内部可变性（Interior mutability）是 Rust 中的一个设计模式，它允许你即使在有不可变引用时也可以改变数据，这通常是借用规则所不允许的。为了改变数据，该模式在数据结构中使用`unsafe`代码来模糊 Rust 通常的可变性和借用规则。
