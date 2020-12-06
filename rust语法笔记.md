@@ -1,5 +1,15 @@
 # rust学习笔记  
+
+## 属性
+
+```rust
+#[repr(align(n))]  指定结构体在内存中以n对齐
+```
+
+
+
 ## string  
+
 ### 字符串索引
 1. Rust 的字符串不支持索引
 2. 因为一个字符串字节值的索引并不总是对应一个有效的标量值。  
@@ -211,7 +221,7 @@ where T: Fn(u32) -> u32
 	calculation: T,
 	value: Option<u32>,
 }
-```  
+```
 定义一个 Cacher 结构体来在 calculation 中存放闭包并在 value 中存放Option 值
 
 ## 闭包会捕获其环境
@@ -221,7 +231,7 @@ let x = 4;
 let equal_to_x = |z| z == x;///编译能通过
 let y = 4;
 assert!(equal_to_x(y));
-```  
+```
 2. 三种捕获环境的方式  
 	- `FnOnce` 消费从周围作用域捕获的变量，闭包必须获取其所有权并在定义闭包时将其移动进闭包。  
 	- `FnMut` 获取可变的借用值所以可以改变其环境  
