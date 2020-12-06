@@ -1,6 +1,4 @@
 # rust学习笔记  
-<<<<<<< HEAD
-
 ## 属性
 
 ```rust
@@ -9,12 +7,9 @@
 
 
 
-=======
 ## 方法  
 1. 可以在迭代器上调用`collect`方法将其转换为一个集合  
-2. unwrap()和expect（）方法，在Result为Err时调用panic！宏，expect可以指定错误信息。
->>>>>>> 635138f3faf6bb690069692b2a8297c335734d5b
-## string  
+2. unwrap()和expect（）方法，在Result为Err时调用panic！宏，expect可以指定错误信息。  
 
 ### 字符串索引
 1. Rust 的字符串不支持索引
@@ -297,7 +292,7 @@ impl Iterator for Counter {
 	}
 }
 ```
-通过定义next方法实现Iterator trait，我们现在就可以使用任何标准库定义的拥有默认实现的Iterator trait方法了，因为他们都使用了next方法的功能。
+通过定义next方法实现Iterator trait，我们现在就可以使用任何标准库定义的拥有默认实现的Iterator trait方法了，因为他们都使用了next方法的功能。  
 ## 智能指针  
 ### 概述  
 智能指针通常使用结构体实现。智能指针区别于常规结构体的显著特性在于其实现了 `Deref` 和 `Drop` trait。`Deref` trait 允许智能指针结构体实例表现的像引用一样，这样就可以编写既用于引用、又用于智能指针的代码。`Drop` trait 允许我们自定义当智能指针离开作用域时运行的代码。  
@@ -328,7 +323,7 @@ fn main() {
             Box::new(Cons(3,
                 Box::new(Nil))))));
 }
-```  
+```
 
 ### 通过 Deref trait 将智能指针当作常规引用处理  
 为了实现 trait，需要提供 trait 所需的方法实现。要求实现名为 `deref` 的方法，其借用 self 并返回一个内部数据的引用。  
