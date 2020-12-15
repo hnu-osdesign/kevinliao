@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["disable","Disables all interrupts"],["enable","Enables all the interrupts"],["free","Execute closure `f` in an interrupt-free context."]],"struct":[["CriticalSection","Critical section token"],["Mutex","A \"mutex\" based on critical sections"]],"trait":[["Nr","Interrupt number"]]});
+initSidebarItems({"fn":[["disable","禁用所有中断"],["enable","打开所有中断"],["free","Execute closure `f` in an interrupt-free context."]],"struct":[["CriticalSection","临界区令牌"],["Mutex","A \"mutex\" 基于临界区"]],"trait":[["Nr","中断号"]]});

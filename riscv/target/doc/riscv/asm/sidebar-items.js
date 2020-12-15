@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["ebreak","`EBREAK` instruction wrapper"],["sfence_vma","`SFENCE.VMA` instruction wrapper"],["sfence_vma_all","`SFENCE.VMA` instruction wrapper (all address spaces and page table levels)"],["wfi","`WFI` instruction wrapper"]]});
+initSidebarItems({"fn":[["ebreak","`EBREAK` 中断包装"],["sfence_vma","`SFENCE.VMA` 中断包装"],["sfence_vma_all","`SFENCE.VMA` 中断包装 (所有的地址空间和多级页表)"],["wfi","`WFI` 中断包装"]]});

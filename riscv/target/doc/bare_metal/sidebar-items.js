@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["CriticalSection","Critical section token"],["Mutex","A \"mutex\" based on critical sections"],["Peripheral","A peripheral"]],"trait":[["Nr","Interrupt number"]]});
+initSidebarItems({"struct":[["CriticalSection","临界区令牌"],["Mutex","A \"mutex\" 基于临界区"],["Peripheral","A peripheral"]],"trait":[["Nr","中断号"]]});

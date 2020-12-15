@@ -64,7 +64,7 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bare_metal</span>::{<span class="ident">CriticalSection</span>, <span class="ident">Mutex</span>, <span class="ident">Nr</span>};
 <span class="kw">use</span> <span class="ident">register</span>::<span class="ident">mstatus</span>;
 
-<span class="doccomment">/// Disables all interrupts</span>
+<span class="doccomment">/// 禁用所有中断</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">disable</span>() {
     <span class="kw">match</span> () {
@@ -75,11 +75,11 @@
     }
 }
 
-<span class="doccomment">/// Enables all the interrupts</span>
+<span class="doccomment">/// 打开所有中断</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Safety</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// - Do not call this function inside an `interrupt::free` critical section</span>
+<span class="doccomment">/// - 不要调用这个函数在 `interrupt::free` critical section</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">enable</span>() {
     <span class="kw">match</span> () {
@@ -90,7 +90,7 @@
     }
 }
 
-<span class="doccomment">/// Execute closure `f` in an interrupt-free context.</span>
+<span class="doccomment">/// 执行闭包 `f` in an interrupt-free context.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This as also known as a &quot;critical section&quot;.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">free</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-&gt;</span> <span class="ident">R</span>

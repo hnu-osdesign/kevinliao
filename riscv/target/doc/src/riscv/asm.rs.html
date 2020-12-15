@@ -103,18 +103,18 @@
 }
 
 <span class="macro">instruction</span><span class="macro">!</span>(
-    <span class="doccomment">/// `EBREAK` instruction wrapper</span>
+    <span class="doccomment">/// `EBREAK` 中断包装</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Generates a breakpoint exception.</span>
     , <span class="ident">ebreak</span>, <span class="string">&quot;ebreak&quot;</span>, <span class="ident">__ebreak</span>);
 <span class="macro">instruction</span><span class="macro">!</span>(
-    <span class="doccomment">/// `WFI` instruction wrapper</span>
+    <span class="doccomment">/// `WFI` 中断包装</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Provides a hint to the implementation that the current hart can be stalled until an interrupt might need servicing.</span>
     <span class="doccomment">/// The WFI instruction is just a hint, and a legal implementation is to implement WFI as a NOP.</span>
     , <span class="ident">wfi</span>, <span class="string">&quot;wfi&quot;</span>, <span class="ident">__wfi</span>);
 <span class="macro">instruction</span><span class="macro">!</span>(
-    <span class="doccomment">/// `SFENCE.VMA` instruction wrapper (all address spaces and page table levels)</span>
+    <span class="doccomment">/// `SFENCE.VMA` 中断包装 (所有的地址空间和多级页表)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Synchronizes updates to in-memory memory-management data structures with current execution.</span>
     <span class="doccomment">/// Instruction execution causes implicit reads and writes to these data structures; however, these implicit references</span>
@@ -123,7 +123,7 @@
     <span class="doccomment">/// `SFENCE.VMA` are ordered before all implicit references subsequent to the `SFENCE.VMA`.</span>
     , <span class="ident">sfence_vma_all</span>, <span class="string">&quot;sfence.vma&quot;</span>, <span class="ident">__sfence_vma_all</span>);
 
-<span class="doccomment">/// `SFENCE.VMA` instruction wrapper</span>
+<span class="doccomment">/// `SFENCE.VMA` 中断包装</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Synchronizes updates to in-memory memory-management data structures with current execution.</span>
 <span class="doccomment">/// Instruction execution causes implicit reads and writes to these data structures; however, these implicit references</span>

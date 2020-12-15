@@ -139,15 +139,15 @@
     }
 }
 
-<span class="doccomment">/// Critical section token</span>
+<span class="doccomment">/// 临界区令牌</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Indicates that you are executing code within a critical section</span>
+<span class="doccomment">/// 表明你正在执行临界区的代码</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CriticalSection</span> {
     <span class="ident">_0</span>: (),
 }
 
 <span class="kw">impl</span> <span class="ident">CriticalSection</span> {
-    <span class="doccomment">/// Creates a critical section token</span>
+    <span class="doccomment">/// Creates a 临界区令牌</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method is meant to be used to create safe abstractions rather than</span>
     <span class="doccomment">/// meant to be directly used in applications.</span>
@@ -156,13 +156,13 @@
     }
 }
 
-<span class="doccomment">/// A &quot;mutex&quot; based on critical sections</span>
+<span class="doccomment">/// A &quot;mutex&quot; 基于临界区</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Safety</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// **This Mutex is only safe on single-core systems.**</span>
+<span class="doccomment">/// **这个互斥锁仅在单核系统中安全。**</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// On multi-core systems, a `CriticalSection` **is not sufficient** to ensure exclusive access.</span>
+<span class="doccomment">/// 在多核系统中, a `CriticalSection` **is not sufficient** to ensure exclusive access.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="ident">inner</span>: <span class="ident">UnsafeCell</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 }
@@ -192,7 +192,7 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
 <span class="kw">const</span> <span class="ident">GH_6</span>: () <span class="op">=</span> ();
 
-<span class="doccomment">/// Interrupt number</span>
+<span class="doccomment">/// 中断号</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">Nr</span> {
     <span class="doccomment">/// Returns the number associated with an interrupt</span>
     <span class="kw">fn</span> <span class="ident">nr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">u8</span>;
