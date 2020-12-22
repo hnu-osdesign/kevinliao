@@ -79,18 +79,18 @@ int main()
 4. 初始化userspace  
 	- 更改当前工作目录 chdir();in syscall/fs.rs  
 	- kexec_kernel() in syscall/process.rs   
- 
+
 5. 循环  
 	- 清除中断  
 	- 启动中断并停机或暂停  
 
-## redox-os\src\memory模块
+## redox-os\src\memory模块 虚拟地址到物理地址的映射
 共有三个文件bump.rs,mod.rs,recycle.rs
 1. mod.rs
- - struct MemoryArea:一块内存，{base_addr,length,_type,acpi}
- - struct MemroyAreaIter:内存的迭代器,{_type,i}
+ - `struct MemoryArea`一块内存，{base_addr,length,_type,acpi}
+ - `struct MemroyAreaIter`内存的迭代器,{_type,i}
  	- new（_type）i=0,_type
- 	- impl Iterator next()  self+1;如果MemoryArea和MemroyAreaIterd的_type类型相等则返回一个Some否则None
+ 	- `impl Iterator next()  self+1`如果MemoryArea和MemroyAreaIterd的_type类型相等则返回一个Some否则None
  - struct Frame：帧号，{number}
  	- fn start_address(&self) -> PhysicalAddress 传回某一帧的起始物理地址（帧号×页大小） 
  	- fn clone(&self) ->Frame 返回当前帧的一个复制。
@@ -114,6 +114,25 @@ int main()
  - fn deallocate_frames(frame,count) 释放一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt; BumpAllocator>,调用allocator.deallocate_frames（frame,count）否则panic！  
 2. bump.rs
  - BumpAllocator{next_free_frame,current_area,areas,kernel_start,kernel_end}
+
+   
 3. recycle.rs
  - struct Range:范围:{base,count}
- - struct RecycleAllocator:{inner,noncore,free}
+ - struct RecycleAllocator:{inner,noncore,free}  
+
+# redox-os/src/allcator 堆分配器
+
+共有三个文件linked_list.rs,mod.rs,slab.rs  
+
+1. linked_list.rs
+
+   - `use core::alloc::{GlobalAlloc, Layout}` 调用核心库
+     `GlobalAlloc trait`规定了对分配器的规则，`GlobalAlloc`含有方法alloc和dealloc  
+   - `unsafe fn alloc(&self, layout: Layout) -> *mut u8`定义了分配内存的规则，[`Layout`](https://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com.hk&sl=en&sp=nmt4&tl=zh-CN&u=https://doc.rust-lang.org/alloc/alloc/struct.Layout.html&xid=25657,15700023,15700186,15700190,15700256,15700259,15700262,15700265,15700271&usg=ALkJrhgfbVGb4vhKLhix2Ocb5VA9y29OfA)实例作为参数，该实例描述分配的内存应具有的所需大小和对齐方式。  
+     - 分配规则：`linked_list_allocator::Heap::allocate_first_fit;`使函数扫描可用内存块的列表，并使用足够大的第一个块，分配给定大小的块。如果成功，则返回指向该块开头的指针。否则它返回`None`。
+   - unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout);`接收地址释放堆内存。
+1. mod.rs
+
+
+
+1. slab.rs
