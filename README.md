@@ -133,12 +133,22 @@ int main()
    - `unsafe fn alloc(&self, layout: Layout) -> *mut u8`定义了分配内存的规则，[`Layout`](https://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com.hk&sl=en&sp=nmt4&tl=zh-CN&u=https://doc.rust-lang.org/alloc/alloc/struct.Layout.html&xid=25657,15700023,15700186,15700190,15700256,15700259,15700262,15700265,15700271&usg=ALkJrhgfbVGb4vhKLhix2Ocb5VA9y29OfA)实例作为参数，该实例描述分配的内存应具有的所需大小和对齐方式。  
      - 分配规则：`linked_list_allocator::Heap::allocate_first_fit;`使函数扫描可用内存块的列表，并使用足够大的第一个块，分配给定大小的块。如果成功，则返回指向该块开头的指针。否则它返回`None`。
    - unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout);`接收地址释放堆内存。  
+
 1. slab.rs 一个slab分配器  
+
    - `use slab_allocator::Heap`
    - `pub unsafe fn init(offset: usize, size: usize)`获取一个HEAP,规则是slab_allocator
    - 方法`alloc``dealloc``oom``usable_size`
    - `usable_size`返回一个成功分配内存的范围
    - `omm`封装panic!宏
-1. mod.rs  
+
+1. mod.rs    
+
+   - `use crate::paging::{ActivePageTable, Page, VirtualAddress};`
+
+     `use crate::paging::entry::EntryFlags;`
+
+     `use crate::paging::mapper::MapperFlushAll;`
+
    - `fn map_heap`初始化虚拟页，手动刷新TLB。
    - `fn init`初始化内核堆，调用`map_heap`，初始化一个分配器。
