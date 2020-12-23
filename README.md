@@ -99,19 +99,19 @@ int main()
  - struct FramIter:帧的迭代器,{start,end}
  	- impl Iterator next() 如果start<=end则start+1,并返回Some否则None
  - stait FrameAllocator
-	- fn set_noncore() fn free_freames() fn used_frames() fn allocate_frames3() fn deallocate_frames()方法的签名  
-	- fn allocate_frames(self, size) -> Option&lt;Frame>的默认方法:调用`allocate_frames2(size,PhysallocFlags::SPACE_64)` 
+	- `fn set_noncore() fn free_freames() fn used_frames() fn allocate_frames3() fn deallocate_frames()`方法的签名  
+	- `fn allocate_frames(self, size) -> Option&lt;Frame>`的默认方法:调用`allocate_frames2(size,PhysallocFlags::SPACE_64)` 
 其中SPACE_64 = 0x0000_0002，但参数其实是一个PhysallocFlags类型  
-	- fn allocate_frames2(self, size, flags) -> Option&lt;Frame>的默认方法调用`allocate_frames3(size, flags, None, size).map(|(s, _)| s)`
- - static MEMORY_MAP[MemoryArea;512]
- - static ALLOCATOR:Mutex&lt;Option&lt;RecycleAllocator&lt;BumpAllocator>>>
- - fn init()初始化： 以0x500作为基地址存储MEMORY_MAP,保存信息到info！，获取一个互斥锁`*ALLOCATOR.lock() = Some(RecycleAllocator::new(BumpAllocator::new(kernel_start, kernel_end, MemoryAreaIter::new(MEMORY_AREA_FREE))));`
- - fn init_noncore()初始化： 申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.set_noncore(true)否则panic！
- - fn free_frames()-> usize 可用帧数：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.free_frames否则panic！
- - fn used_frames()->usize 已用帧数：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.used_frames否则panic！
- - fn allocate_frames(size)->Option(Frame) 分配一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.allocator(size)否则panic！
- - fn allocate_frames_complex(count,flags,strategy,min) 分配一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.allocate_frames3否则panic！
- - fn deallocate_frames(frame,count) 释放一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt; BumpAllocator>,调用allocator.deallocate_frames（frame,count）否则panic！  
+	- `fn allocate_frames2(self, size, flags) -> Option&lt;Frame>`的默认方法调用`allocate_frames3(size, flags, None, size).map(|(s, _)| s)`
+ - `static MEMORY_MAP[MemoryArea;512]`
+ - `static ALLOCATOR:Mutex&lt;Option&lt;RecycleAllocator&lt;BumpAllocator>>>`
+ - `fn init()`初始化： 以0x500作为基地址存储MEMORY_MAP,保存信息到info！，获取一个互斥锁`*ALLOCATOR.lock() = Some(RecycleAllocator::new(BumpAllocator::new(kernel_start, kernel_end, MemoryAreaIter::new(MEMORY_AREA_FREE))));`
+ - `fn init_noncore()初始化： 申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.set_noncore(true)否则panic！
+ - `fn free_frames()-> usize` 可用帧数：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.free_frames否则panic！
+ - `fn used_frames()->usize` 已用帧数：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.used_frames否则panic！
+ - `fn allocate_frames(size)->Option(Frame)` 分配一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.allocator(size)否则panic！
+ - `fn allocate_frames_complex(count,flags,strategy,min)` 分配一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt;BumpAllocator>,调用allocator.allocate_frames3否则panic！
+ - `fn deallocate_frames(frame,count) `释放一定数量的帧：申请互斥锁对象ALLOCATOR,取出allocator：RecycleAllocator&lt; BumpAllocator>,调用allocator.deallocate_frames（frame,count）否则panic！  
 2. bump.rs
  - BumpAllocator{next_free_frame,current_area,areas,kernel_start,kernel_end}
 
@@ -124,15 +124,21 @@ int main()
 
 共有三个文件linked_list.rs,mod.rs,slab.rs  
 
-1. linked_list.rs
+1. linked_list.rs一个链表分配器
 
    - `use core::alloc::{GlobalAlloc, Layout}` 调用核心库
-     `GlobalAlloc trait`规定了对分配器的规则，`GlobalAlloc`含有方法alloc和dealloc  
+     `use linked_list_allocator::Heap`并且定义了一个静态的分配器HEAP
+     `GlobalAlloc trait`规定了对分配器的规则，`GlobalAlloc`含有方法`alloc`和`dealloc  `
+   - `pub unsafe fn init(offset: usize, size: usize)`获取一个HEAP规则是list_list
    - `unsafe fn alloc(&self, layout: Layout) -> *mut u8`定义了分配内存的规则，[`Layout`](https://translate.googleusercontent.com/translate_c?depth=1&rurl=translate.google.com.hk&sl=en&sp=nmt4&tl=zh-CN&u=https://doc.rust-lang.org/alloc/alloc/struct.Layout.html&xid=25657,15700023,15700186,15700190,15700256,15700259,15700262,15700265,15700271&usg=ALkJrhgfbVGb4vhKLhix2Ocb5VA9y29OfA)实例作为参数，该实例描述分配的内存应具有的所需大小和对齐方式。  
      - 分配规则：`linked_list_allocator::Heap::allocate_first_fit;`使函数扫描可用内存块的列表，并使用足够大的第一个块，分配给定大小的块。如果成功，则返回指向该块开头的指针。否则它返回`None`。
-   - unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout);`接收地址释放堆内存。
-1. mod.rs
-
-
-
-1. slab.rs
+   - unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout);`接收地址释放堆内存。  
+1. slab.rs 一个slab分配器  
+   - `use slab_allocator::Heap`
+   - `pub unsafe fn init(offset: usize, size: usize)`获取一个HEAP,规则是slab_allocator
+   - 方法`alloc``dealloc``oom``usable_size`
+   - `usable_size`返回一个成功分配内存的范围
+   - `omm`封装panic!宏
+1. mod.rs  
+   - `fn map_heap`初始化虚拟页，手动刷新TLB。
+   - `fn init`初始化内核堆，调用`map_heap`，初始化一个分配器。
