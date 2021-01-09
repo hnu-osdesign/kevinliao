@@ -1,0 +1,13 @@
+c:\Users\帅琨\Desktop\rs_file\kevinliao\riscv\target\debug\deps\memchr-a6b6bae77f6bb5ab.rmeta: C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\lib.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\fallback.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\iter.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\naive.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\mod.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\avx.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\sse2.rs
+
+c:\Users\帅琨\Desktop\rs_file\kevinliao\riscv\target\debug\deps\libmemchr-a6b6bae77f6bb5ab.rlib: C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\lib.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\fallback.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\iter.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\naive.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\mod.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\avx.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\sse2.rs
+
+c:\Users\帅琨\Desktop\rs_file\kevinliao\riscv\target\debug\deps\memchr-a6b6bae77f6bb5ab.d: C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\lib.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\fallback.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\iter.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\naive.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\mod.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\avx.rs C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\sse2.rs
+
+C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\lib.rs:
+C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\fallback.rs:
+C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\iter.rs:
+C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\naive.rs:
+C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\mod.rs:
+C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\avx.rs:
+C:\Users\帅琨\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.3.4\src\x86\sse2.rs:
